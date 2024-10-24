@@ -1,4 +1,3 @@
-// deno-lint-ignore-file no-explicit-any
 import { AtpAgent } from "npm:@atproto/api";
 import {
 	Input,
