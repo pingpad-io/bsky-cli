@@ -1,7 +1,41 @@
-import { Input, Secret } from "@cliffy/prompt";
 import { RichText } from "@atproto/api";
 import { Command } from "@cliffy/command";
+import { Input, Secret } from "@cliffy/prompt";
 import { BlueskyClient } from "./client.ts";
+
+import { tty } from "@cliffy/ansi/tty";
+import { keypress } from "@cliffy/keypress";
+
+async function createInteractivePost(): Promise<string> {
+	let text = "";
+	console.log("\x1B[2J\x1B[0;0H"); // Clear screen
+	console.log(
+		`Your post [${text.length}/300] (Enter to submit, Esc to cancel):`,
+	);
+	console.log(text);
+
+	for await (const event of keypress()) {
+		if (event.key === "escape") {
+			return "";
+		}
+		if (event.key === "return") {
+			return text;
+		}
+		if (event.key === "backspace") {
+			text = text.slice(0, -1);
+		} else if (event.key?.length === 1 || event.key === "space") {
+			text += event.key;
+		}
+
+		console.log("\x1B[2J\x1B[0;0H"); 
+		console.log(
+			`Your post [${text.length}/300] (Enter to submit, Esc to cancel):`,
+		);
+		console.log(`> ${text}`);
+	}
+
+	return text;
+}
 
 const client = new BlueskyClient();
 
@@ -28,10 +62,16 @@ await new Command()
 		}
 	})
 	.command("post", "Post to Bluesky")
-	.arguments("<text:string>")
-	.action(async (_options: unknown, text: string) => {
+	.action(async () => {
 		try {
 			await client.login();
+			const text = await createInteractivePost();
+
+			if (!text) {
+				console.log("Post cancelled");
+				return;
+			}
+
 			const rt = new RichText({ text });
 			await rt.detectFacets(client.agent);
 
