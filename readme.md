@@ -21,5 +21,5 @@ you'll be prompted to login with your login and app-password.
 
 2. to post a message, run:
 ```sh
-bsky post "boop"
+bsky post
 ```
