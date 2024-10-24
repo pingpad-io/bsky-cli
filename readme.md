@@ -3,7 +3,8 @@
 a simple [bluesky](https://bsky.app) cli interface
 
 **how?**
-0. To install, run 
+
+0. To install, run
 ```sh
 deno install --allow-all --name bsky --global --import-map imports.json -f ./src/main.ts
 ```
@@ -18,4 +19,3 @@ You'll be prompted to login with your login and app-password.
 ```sh
 bsky post "boop"
 ```
-
