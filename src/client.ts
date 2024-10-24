@@ -1,8 +1,13 @@
-import { AtpAgent } from "npm:@atproto/api";
+import { AtpAgent, type RichText } from "npm:@atproto/api";
 import { CredentialManager } from "./creds.ts";
 
+export interface PostOptions {
+	text: string;
+	facets?: RichText["facets"];
+}
+
 export class BlueskyClient {
-	private agent: AtpAgent;
+	public agent: AtpAgent;
 	private credManager: CredentialManager;
 
 	constructor() {
@@ -13,7 +18,7 @@ export class BlueskyClient {
 	async login(identifier?: string, password?: string) {
 		if (!identifier || !password) {
 			const creds = await this.credManager.loadCredentials();
-			
+
 			if (!creds) {
 				throw new Error("No credentials found. Please run `bsky login` first.");
 			}
@@ -22,9 +27,9 @@ export class BlueskyClient {
 				identifier: creds.identifier,
 				password: creds.password,
 			});
-			
+
 			if (!response.success) {
-  			throw new Error("Login failed");
+				throw new Error("Login failed");
 			}
 			return;
 		}
@@ -34,9 +39,13 @@ export class BlueskyClient {
 		await this.credManager.saveCredentials(identifier, password);
 	}
 
-	async post(text: string) {
+	async post(options: PostOptions | string) {
+		const postOptions =
+			typeof options === "string" ? { text: options } : options;
+
 		await this.agent.post({
-			text,
+			text: postOptions.text,
+			facets: postOptions.facets,
 			createdAt: new Date().toISOString(),
 		});
 	}

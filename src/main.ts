@@ -4,6 +4,7 @@ import {
 } from "https://deno.land/x/cliffy@v1.0.0-rc.3/prompt/mod.ts";
 import { Command } from "@cliffy/command";
 import { BlueskyClient } from "./client.ts";
+import { RichText } from "@atproto/api";
 
 const client = new BlueskyClient();
 
@@ -34,7 +35,13 @@ await new Command()
 	.action(async (_options: unknown, text: string) => {
 		try {
 			await client.login();
-			await client.post(text);
+			const rt = new RichText({ text });
+			await rt.detectFacets(client.agent);
+
+			await client.post({
+				text: rt.text,
+				facets: rt.facets,
+			});
 			console.log("Posted successfully!");
 		} catch (error) {
 			if (error instanceof Error) {
