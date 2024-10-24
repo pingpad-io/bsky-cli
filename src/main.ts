@@ -23,11 +23,15 @@ async function createInteractivePost(): Promise<string> {
 		}
 		if (event.key === "backspace") {
 			text = text.slice(0, -1);
-		} else if (event.key?.length === 1 || event.key === "space") {
+		}
+		if (event.key === "space") {
+			text += " ";
+		}
+		if (event.key?.length === 1) {
 			text += event.key;
 		}
 
-		console.log("\x1B[2J\x1B[0;0H"); 
+		console.log("\x1B[2J\x1B[0;0H");
 		console.log(
 			`Your post [${text.length}/300] (Enter to submit, Esc to cancel):`,
 		);
