@@ -4,23 +4,21 @@ a simple [bluesky](https://bsky.app) cli interface
 
 **how?**
 
-0. To install, run
+0. to install (or update), run:
 ```sh
-deno install    \
-    --allow-all \
-    --name bsky \
-    --global    \
-    -f          \
+deno install --allow-all --global -f --name bsky \
     https://raw.githubusercontent.com/pingpad-io/bsky-cli/refs/heads/main/src/main.ts
 ```
 
-1. To login, run
+1. to login, run:
 ```sh
 bsky login
 ```
-You'll be prompted to login with your login and app-password.
 
-2. To post a message, run
+you'll be prompted to login with your login and app-password.
+
+
+2. to post a message, run:
 ```sh
 bsky post "boop"
 ```
