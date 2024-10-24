@@ -1,10 +1,7 @@
-import {
-	Input,
-	Secret,
-} from "https://deno.land/x/cliffy@v1.0.0-rc.3/prompt/mod.ts";
+import { Input, Secret } from "@cliffy/prompt";
+import { RichText } from "@atproto/api";
 import { Command } from "@cliffy/command";
 import { BlueskyClient } from "./client.ts";
-import { RichText } from "@atproto/api";
 
 const client = new BlueskyClient();
 
