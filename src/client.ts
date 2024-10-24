@@ -1,4 +1,4 @@
-import { AtpAgent, type RichText } from "npm:@atproto/api";
+import { AtpAgent, type RichText } from "@atproto/api";
 import { CredentialManager } from "./creds.ts";
 
 export interface PostOptions {

@@ -6,7 +6,7 @@ a simple [bluesky](https://bsky.app) cli interface
 
 0. To install, run
 ```sh
-deno install --allow-all --name bsky --global --import-map imports.json -f ./src/main.ts
+deno install --allow-all --name bsky --global -f ./src/main.ts
 ```
 
 1. To login, run
