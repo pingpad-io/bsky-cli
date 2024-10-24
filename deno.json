@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "dev": "deno run --watch main.ts"
+    "dev": "deno run --watch src/main.ts"
   },
   "imports": {
     "@atproto/api": "npm:@atproto/api@^0.13.12",
