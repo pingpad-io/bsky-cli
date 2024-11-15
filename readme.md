@@ -1,3 +1,5 @@
+**deprecated**, check out [bsky-cli](https://github.com/sugyan/atrium/tree/main/bsky-cli)
+
 **what?**
 
 a simple [bluesky](https://bsky.app) cli interface
